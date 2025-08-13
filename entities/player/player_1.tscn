@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://p4iervmwjci7"]
+[gd_scene load_steps=7 format=3 uid="uid://p4iervmwjci7"]
 
 [ext_resource type="Script" uid="uid://bp4il20tes3l3" path="res://scripts/player_controller.cs" id="1_hc66q"]
 [ext_resource type="Texture2D" uid="uid://jrsos3j1pyw4" path="res://assets/players/goku.webp" id="1_ibhmf"]
-[ext_resource type="Script" uid="uid://dfr6uq8m0pucs" path="res://scripts/animation_player.cs" id="3_0vot4"]
 
 [sub_resource type="Animation" id="Animation_ibhmf"]
 loop_mode = 1
@@ -44,8 +43,9 @@ _data = {
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hc66q"]
 height = 24.7178
 
-[node name="Player1" type="CharacterBody2D"]
+[node name="Player1" type="CharacterBody2D" node_paths=PackedStringArray("_animationPlayerPath")]
 script = ExtResource("1_hc66q")
+_animationPlayerPath = NodePath("Sprite2D/AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-2, 1)
@@ -58,7 +58,6 @@ root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_y88lp")
 }
-script = ExtResource("3_0vot4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, -9.53674e-07)

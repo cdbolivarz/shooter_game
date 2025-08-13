@@ -1,7 +1,10 @@
+using System;
 using Godot;
 
 public partial class player_controller : CharacterBody2D
 {
+    [Export]
+    public AnimationPlayer _animationPlayerPath;
     private float _runSpeed = 350;
     private float _jumpSpeed = -1000;
     private float _gravity = 2500;
@@ -14,6 +17,8 @@ public partial class player_controller : CharacterBody2D
         var right = Input.IsActionPressed("ui_right");
         var left = Input.IsActionPressed("ui_left");
         var jump = Input.IsActionPressed("ui_select");
+
+
 
         if (IsOnFloor() && jump)
         {
@@ -28,6 +33,15 @@ public partial class player_controller : CharacterBody2D
             velocity.X -= _runSpeed;
         }
 
+        if (velocity.X == 0 && IsOnFloor())
+        {
+            _animationPlayerPath.Play("idle");
+        }
+        else
+        {
+            _animationPlayerPath.Stop();
+        } 
+
         Velocity = velocity;
     }
 
@@ -39,5 +53,5 @@ public partial class player_controller : CharacterBody2D
         GetInput();
         MoveAndSlide();
     }
-    
+
 }
