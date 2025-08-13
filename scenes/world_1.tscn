@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1h36akeebu4c"]
+
+[ext_resource type="PackedScene" uid="uid://ddijh8ocopaij" path="res://scenes/platforms/rock.tscn" id="1_5lqpt"]
+[ext_resource type="PackedScene" uid="uid://cjhai1yqxa0pm" path="res://cameras/main_camera.tscn" id="2_gawm5"]
+[ext_resource type="PackedScene" uid="uid://p4iervmwjci7" path="res://entities/player/player_1.tscn" id="3_4eyuj"]
+
+[node name="World" type="Node2D"]
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Rock" parent="Platforms" instance=ExtResource("1_5lqpt")]
+position = Vector2(-298, -7)
+
+[node name="Rock2" parent="Platforms" instance=ExtResource("1_5lqpt")]
+position = Vector2(215, -6)
+
+[node name="MainCamera" parent="." instance=ExtResource("2_gawm5")]
+
+[node name="Player1" parent="." instance=ExtResource("3_4eyuj")]
+position = Vector2(-379, -170)
+scale = Vector2(0.876, 1)
