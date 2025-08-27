@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpdhcwo885r3r"]
+
+[ext_resource type="Script" uid="uid://bve3q0vcfsluh" path="res://scripts/systems/guns/ecs/components/FireRateComponent.cs" id="1_msijj"]
+
+[node name="WFireRateBase" type="Node"]
+script = ExtResource("1_msijj")

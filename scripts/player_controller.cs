@@ -5,9 +5,21 @@ public partial class player_controller : CharacterBody2D
 {
     [Export]
     public AnimationPlayer _animationPlayerPath;
+
+    public WeaponSystem WeaponS;
+    public WeaponComponent Gun;
+
     private float _runSpeed = 350;
     private float _jumpSpeed = -1000;
     private float _gravity = 2500;
+
+
+
+    public override void _Ready()
+    {
+        WeaponS = GetNode<WeaponSystem>("/root/World/WeaponSystem");
+        Gun = GetNode<WeaponComponent>("Gun");
+    }
 
     private void GetInput()
     {
@@ -40,9 +52,19 @@ public partial class player_controller : CharacterBody2D
         else
         {
             _animationPlayerPath.Stop();
-        } 
+        }
+
 
         Velocity = velocity;
+
+    }
+
+    public override void _Process(double delta)
+    {   
+        if (Input.IsActionPressed("shoot"))
+        {
+            WeaponS.TryShoot(this, Gun);
+        }
     }
 
     public override void _PhysicsProcess(double delta)

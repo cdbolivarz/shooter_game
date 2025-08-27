@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://p7lqqj64gb8r"]
+
+[ext_resource type="Texture2D" uid="uid://by3akgssb215b" path="res://assets/materials/weapons/m16.webp" id="1_3iqmb"]
+[ext_resource type="Script" uid="uid://ljf4cw1clugg" path="res://scripts/systems/guns/ecs/components/WeaponComponent.cs" id="1_jakks"]
+[ext_resource type="PackedScene" uid="uid://bjgufxkpurrxe" path="res://scenes/weapons/WProjectileBase.tscn" id="3_jakks"]
+[ext_resource type="PackedScene" uid="uid://bpdhcwo885r3r" path="res://scenes/weapons/WFireRateBase.tscn" id="5_nuxcf"]
+[ext_resource type="PackedScene" uid="uid://6667m6qmumwm" path="res://scenes/weapons/WAmmoBase.tscn" id="6_1w1hg"]
+
+[node name="M16" type="Node2D" node_paths=PackedStringArray("Projectile", "FireRate", "Ammo")]
+script = ExtResource("1_jakks")
+Projectile = NodePath("WProjectilBase")
+FireRate = NodePath("WFireRateBase")
+Ammo = NodePath("WAmmoBase")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(30, 15)
+scale = Vector2(0.134539, 0.149877)
+texture = ExtResource("1_3iqmb")
+
+[node name="WProjectilBase" parent="." instance=ExtResource("3_jakks")]
+
+[node name="WFireRateBase" parent="." instance=ExtResource("5_nuxcf")]
+
+[node name="WAmmoBase" parent="." instance=ExtResource("6_1w1hg")]
