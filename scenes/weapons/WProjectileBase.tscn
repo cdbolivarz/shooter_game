@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bjgufxkpurrxe"]
 
 [ext_resource type="Script" uid="uid://n2ceoqs65bj4" path="res://scripts/systems/guns/ecs/components/ProjectileComponent.cs" id="1_licse"]
-[ext_resource type="PackedScene" uid="uid://csnv6f48gkdkj" path="res://scenes/projectiles/m16_bullet.tscn" id="2_j1488"]
+[ext_resource type="PackedScene" uid="uid://csnv6f48gkdkj" path="res://scenes/projectiles/M16Bullet.tscn" id="2_j1488"]
 [ext_resource type="PackedScene" uid="uid://c3tyrpiy8qe6y" path="res://scenes/weapons/WBLifeCycleBase.tscn" id="3_53dqe"]
 [ext_resource type="PackedScene" uid="uid://orp03hcyjae8" path="res://scenes/weapons/WBDamageBase.tscn" id="4_j1488"]
 

@@ -13,8 +13,8 @@ FireRate = NodePath("WFireRateBase")
 Ammo = NodePath("WAmmoBase")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(30, 15)
-scale = Vector2(0.134539, 0.149877)
+position = Vector2(34, 16)
+scale = Vector2(0.116831, 0.12757)
 texture = ExtResource("1_3iqmb")
 
 [node name="WProjectilBase" parent="." instance=ExtResource("3_jakks")]
@@ -22,3 +22,6 @@ texture = ExtResource("1_3iqmb")
 [node name="WFireRateBase" parent="." instance=ExtResource("5_nuxcf")]
 
 [node name="WAmmoBase" parent="." instance=ExtResource("6_1w1hg")]
+
+[node name="Cannon" type="Marker2D" parent="."]
+position = Vector2(175, -1)
