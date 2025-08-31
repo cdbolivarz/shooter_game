@@ -21,31 +21,34 @@ public partial class PlayerController : CharacterBody2D
         stateMachine = new PlayerStateMachine(stateFactory);
         
         stateMachine.Initialize(PlayerStateType.Ground);
+        
+        InputSystem.OnActionTriggered += OnInputActionTriggered;
+    }
+    
+    public override void _ExitTree()
+    {
+        InputSystem.OnActionTriggered -= OnInputActionTriggered;
     }
     
     public override void _Process(double delta)
     {
+        InputSystem.ProcessInput();
         stateMachine.Update((float)delta);
     }
     
     public override void _PhysicsProcess(double delta)
     {
-        Vector2 inputDirection = Vector2.Zero;
-        
-        if (Input.IsActionPressed("move_left"))
-            inputDirection.X -= 1;
-        if (Input.IsActionPressed("move_right"))
-            inputDirection.X += 1;
-        
-        if (Input.IsActionJustPressed("jump"))
-            stateMachine.CurrentState.HandleJump();
-        
-        if (Input.IsActionPressed("shoot"))
-            stateMachine.CurrentState.HandleShoot();
-        
+        Vector2 inputDirection = InputSystem.GetMovementInput();
         if (inputDirection != Vector2.Zero)
-            stateMachine.CurrentState.HandleMove(inputDirection);
+        {
+            stateMachine.HandleMovement(inputDirection);
+        }
         
         MoveAndSlide();
+    }
+    
+    private void OnInputActionTriggered(InputAction action)
+    {
+        stateMachine.HandleInputAction(action);
     }
 }

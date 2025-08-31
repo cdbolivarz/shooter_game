@@ -21,7 +21,25 @@ public class GroundState : PlayerStateBase
         }
     }
     
-    public override void HandleMove(Vector2 inputDirection)
+    public override void HandleInputAction(InputAction action)
+    {
+        switch (action)
+        {
+            case InputAction.Jump:
+                Vector2 velocity = player.Velocity;
+                velocity.Y = attributes.jumpForce;
+                player.Velocity = velocity;
+                animationPlayer.Play("jump");
+                shouldTransitionToAirborne = true;
+                break;
+                
+            case InputAction.Shoot:
+                animationPlayer.Play("shoot");
+                break;
+        }
+    }
+    
+    public override void HandleMovement(Vector2 inputDirection)
     {
         Vector2 velocity = player.Velocity;
         velocity.X = inputDirection.X * attributes.moveSpeed;
@@ -35,21 +53,6 @@ public class GroundState : PlayerStateBase
         {
             animationPlayer.Play("idle");
         }
-    }
-    
-    public override void HandleJump()
-    {
-        Vector2 velocity = player.Velocity;
-        velocity.Y = attributes.jumpForce;
-        player.Velocity = velocity;
-        
-        animationPlayer.Play("jump");
-        shouldTransitionToAirborne = true;
-    }
-    
-    public override void HandleShoot()
-    {
-        animationPlayer.Play("shoot");
     }
     
     public override PlayerStateType GetNextStateType()

@@ -37,26 +37,30 @@ public class AirborneState : PlayerStateBase
         }
     }
     
-    public override void HandleMove(Vector2 inputDirection)
+    public override void HandleInputAction(InputAction action)
+    {
+        switch (action)
+        {
+            case InputAction.Jump:
+                if (player.Velocity.Y < 0)
+                {
+                    Vector2 velocity = player.Velocity;
+                    velocity.Y = Mathf.Max(velocity.Y, -200.0f);
+                    player.Velocity = velocity;
+                }
+                break;
+                
+            case InputAction.Shoot:
+                animationPlayer.Play("air_shoot");
+                break;
+        }
+    }
+    
+    public override void HandleMovement(Vector2 inputDirection)
     {
         Vector2 velocity = player.Velocity;
         velocity.X = inputDirection.X * attributes.airMoveSpeed;
         player.Velocity = velocity;
-    }
-    
-    public override void HandleJump()
-    {
-        if (player.Velocity.Y < 0)
-        {
-            Vector2 velocity = player.Velocity;
-            velocity.Y = Mathf.Max(velocity.Y, -200.0f);
-            player.Velocity = velocity;
-        }
-    }
-    
-    public override void HandleShoot()
-    {
-        animationPlayer.Play("air_shoot");
     }
     
     public override PlayerStateType GetNextStateType()

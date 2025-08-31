@@ -6,9 +6,8 @@ public interface IPlayerState
     void Exit();
     void Update(float delta);
     
-    void HandleMove(Vector2 inputDirection);
-    void HandleJump();
-    void HandleShoot();
+    void HandleInputAction(InputAction action);
+    void HandleMovement(Vector2 inputDirection);
     
     PlayerStateType GetNextStateType();
 }

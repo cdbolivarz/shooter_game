@@ -29,6 +29,16 @@ public class PlayerStateMachine
         }
     }
     
+    public void HandleInputAction(InputAction action)
+    {
+        currentState?.HandleInputAction(action);
+    }
+    
+    public void HandleMovement(Vector2 inputDirection)
+    {
+        currentState?.HandleMovement(inputDirection);
+    }
+    
     private void TransitionTo(PlayerStateType newStateType)
     {
         IPlayerState newState = stateFactory.CreateState(newStateType);

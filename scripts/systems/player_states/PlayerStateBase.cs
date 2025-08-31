@@ -17,9 +17,8 @@ public abstract class PlayerStateBase : IPlayerState
     public virtual void Exit() { }
     public virtual void Update(float delta) { }
     
-    public abstract void HandleMove(Vector2 inputDirection);
-    public abstract void HandleJump();
-    public abstract void HandleShoot();
+    public abstract void HandleInputAction(InputAction action);
+    public abstract void HandleMovement(Vector2 inputDirection);
     
     public virtual PlayerStateType GetNextStateType() => PlayerStateType.None;
 }
