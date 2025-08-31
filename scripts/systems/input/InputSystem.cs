@@ -7,21 +7,10 @@ public static class InputSystem
     
     public static void ProcessInput()
     {
-        if (Input.IsActionJustPressed("move_left"))
-            OnActionTriggered?.Invoke(InputAction.MoveLeft);
-        if (Input.IsActionJustPressed("move_right"))
-            OnActionTriggered?.Invoke(InputAction.MoveRight);
         if (Input.IsActionJustPressed("jump"))
             OnActionTriggered?.Invoke(InputAction.Jump);
         if (Input.IsActionJustPressed("shoot"))
             OnActionTriggered?.Invoke(InputAction.Shoot);
-        
-        if (Input.IsActionJustReleased("move_left"))
-            OnActionReleased?.Invoke(InputAction.MoveLeft);
-        if (Input.IsActionJustReleased("move_right"))
-            OnActionReleased?.Invoke(InputAction.MoveRight);
-        if (Input.IsActionJustReleased("shoot"))
-            OnActionReleased?.Invoke(InputAction.Shoot);
     }
     
     public static Vector2 GetMovementInput()
