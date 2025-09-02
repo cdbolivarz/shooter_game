@@ -6,9 +6,9 @@ public partial class player_controller : CharacterBody2D
     [Export]
     public AnimationPlayer _animationPlayerPath;
 
-    public WeaponSystem WeaponS;
-    public WeaponComponent Gun;
-    public Marker2D Cannon;
+    public WeaponSystem _weaponSystem;
+    public WeaponFactory _weaponFactory;
+    public WeaponEntity _currentWeapon;
 
     private float _runSpeed = 350;
     private float _jumpSpeed = -1000;
@@ -18,9 +18,8 @@ public partial class player_controller : CharacterBody2D
 
     public override void _Ready()
     {
-        WeaponS = GetNode<WeaponSystem>("/root/World/WeaponSystem");
-        Gun = GetNode<WeaponComponent>("Gun");
-        Cannon = GetNode<Marker2D>("Gun/Cannon");
+        _weaponSystem = GetNode<WeaponSystem>("/root/World/WeaponSystem");
+        _weaponFactory = GetNode<WeaponFactory>("/root/World/WeaponFactory");
     }
 
     private void GetInput()
@@ -63,24 +62,27 @@ public partial class player_controller : CharacterBody2D
 
     public override void _Process(double delta)
     {
-        // state machine for weapons?, reloading, switching, shooting modes, overheating, etc
-        if (Input.IsActionPressed("shoot"))
+        
+        // Weapon handling
+        _weaponSystem.HandleInput(_currentWeapon);
+
+        if (Input.IsActionJustPressed("equip_weapon") && _currentWeapon == null)
         {
-            WeaponS.TryShoot(Cannon, Gun);
+            
+            var weapon_scene = _weaponFactory.InstantiateWeapon(this, "m16");
+            _currentWeapon = weapon_scene.GetNode<WeaponEntity>("WeaponEntity");
+            _currentWeapon.Cannon = weapon_scene.GetNode<Marker2D>("Cannon");
+
         }
-        if (Input.IsActionJustPressed("reload"))
-        {
-            // Async call to avoid blocking the main thread while reloading
-            _ = WeaponS.Reload(Gun);
-        }
-        //if (Input.IsActionJustPressed("switch_weapon"))
+        //if (Input.IsActionJustPressed("unequip_weapon") && _currentWeapon != null)
         //{
-            // WeaponS.SwitchWeapon(); // only 2 weapons?, or cycle through a list?, or open a menu?, slowmotion while selecting?
+        //    _currentWeapon.QueueFree();
+        //    _currentWeapon = null;
         //}
-        //if (Input.IsActionJustPressed("switch_firemode"))
-        //{
-            // WeaponS.SwitchFireMode(Gun); // only 2 modes?, or cycle through a list?
-        //}
+
+        if (_currentWeapon != null)
+            _weaponSystem.HandleInput(_currentWeapon);
+
         
     }
 

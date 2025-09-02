@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://orp03hcyjae8"]
 
-[ext_resource type="Script" uid="uid://dkflo2jh6s31q" path="res://scripts/systems/guns/ecs/components/DamageComponent.cs" id="1_0fsei"]
+[ext_resource type="Script" uid="uid://dkflo2jh6s31q" path="res://scripts/systems/weapons/ecs/components/DamageComponent.cs" id="1_0fsei"]
 
 [node name="WBDamageBase" type="Node"]
 script = ExtResource("1_0fsei")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://6667m6qmumwm"]
 
-[ext_resource type="Script" uid="uid://bp0d8kvvj7npl" path="res://scripts/systems/guns/ecs/components/AmmoComponent.cs" id="1_04sw1"]
+[ext_resource type="Script" uid="uid://bp0d8kvvj7npl" path="res://scripts/systems/weapons/ecs/components/AmmoComponent.cs" id="1_04sw1"]
 
 [node name="WAmmoBase" type="Node"]
 script = ExtResource("1_04sw1")

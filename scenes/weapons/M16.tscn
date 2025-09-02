@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://p7lqqj64gb8r"]
+
+[ext_resource type="Texture2D" uid="uid://by3akgssb215b" path="res://assets/materials/weapons/m16.webp" id="1_3iqmb"]
+[ext_resource type="PackedScene" uid="uid://dgmuqc77pssi7" path="res://scenes/weapons/WeaponBase.tscn" id="2_nlk1m"]
+[ext_resource type="Script" uid="uid://c5yp5p46avcoe" path="res://scripts/systems/weapons/ecs/entities/WeaponEntity.cs" id="3_qomni"]
+
+[node name="Weapon" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(34, 16)
+scale = Vector2(0.116831, 0.12757)
+texture = ExtResource("1_3iqmb")
+
+[node name="Cannon" type="Marker2D" parent="."]
+position = Vector2(175, -1)
+
+[node name="WeaponEntity" parent="." instance=ExtResource("2_nlk1m")]
+script = ExtResource("3_qomni")

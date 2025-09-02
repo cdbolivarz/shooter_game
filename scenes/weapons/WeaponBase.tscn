@@ -1,12 +1,12 @@
 [gd_scene load_steps=5 format=3 uid="uid://dgmuqc77pssi7"]
 
-[ext_resource type="Script" uid="uid://ljf4cw1clugg" path="res://scripts/systems/guns/ecs/components/WeaponComponent.cs" id="1_3qlfn"]
+[ext_resource type="Script" uid="uid://c5yp5p46avcoe" path="res://scripts/systems/weapons/ecs/entities/WeaponEntity.cs" id="1_67nbx"]
 [ext_resource type="PackedScene" uid="uid://bjgufxkpurrxe" path="res://scenes/weapons/WProjectileBase.tscn" id="2_67nbx"]
 [ext_resource type="PackedScene" uid="uid://bpdhcwo885r3r" path="res://scenes/weapons/WFireRateBase.tscn" id="3_whybq"]
 [ext_resource type="PackedScene" uid="uid://6667m6qmumwm" path="res://scenes/weapons/WAmmoBase.tscn" id="4_0o2gk"]
 
 [node name="WeaponBase" type="Node" node_paths=PackedStringArray("Projectile", "FireRate", "Ammo")]
-script = ExtResource("1_3qlfn")
+script = ExtResource("1_67nbx")
 Projectile = NodePath("WProjectilBase")
 FireRate = NodePath("WFireRateBase")
 Ammo = NodePath("WAmmoBase")

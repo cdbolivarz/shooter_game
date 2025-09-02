@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c3tyrpiy8qe6y"]
 
-[ext_resource type="Script" uid="uid://cp0ohv5fa5pyn" path="res://scripts/systems/guns/ecs/components/LifeCycleComponent.cs" id="1_w3qf4"]
+[ext_resource type="Script" uid="uid://cp0ohv5fa5pyn" path="res://scripts/systems/weapons/ecs/components/LifeCycleComponent.cs" id="1_w3qf4"]
 
 [node name="WBLifeCycleBase" type="Node"]
 script = ExtResource("1_w3qf4")

@@ -1,9 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://p4iervmwjci7"]
+[gd_scene load_steps=7 format=3 uid="uid://p4iervmwjci7"]
 
 [ext_resource type="Script" uid="uid://bp4il20tes3l3" path="res://scripts/player_controller.cs" id="1_hc66q"]
 [ext_resource type="Texture2D" uid="uid://jrsos3j1pyw4" path="res://assets/players/goku.webp" id="1_ibhmf"]
-[ext_resource type="Script" uid="uid://ljf4cw1clugg" path="res://scripts/systems/guns/ecs/components/WeaponComponent.cs" id="3_pre8j"]
-[ext_resource type="Script" uid="uid://bp0d8kvvj7npl" path="res://scripts/systems/guns/ecs/components/AmmoComponent.cs" id="5_1rchp"]
 
 [sub_resource type="Animation" id="Animation_ibhmf"]
 loop_mode = 1
@@ -65,11 +63,3 @@ libraries = {
 position = Vector2(2, -9.53674e-07)
 scale = Vector2(-3.64439, -7.76767)
 shape = SubResource("CapsuleShape2D_hc66q")
-
-[node name="Weapon" type="Node2D" parent="."]
-
-[node name="WeaponComponent" type="Node2D" parent="Weapon"]
-script = ExtResource("3_pre8j")
-
-[node name="AmmoComponent" type="Node2D" parent="Weapon"]
-script = ExtResource("5_1rchp")

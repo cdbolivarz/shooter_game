@@ -1,16 +1,22 @@
+using System;
 using Godot;
 
 public partial class ProjectileSystem : Node
 {
 
-    public void RegisterProjectileSignals(ProjectileEntity projectile)
+    public void RegisterProjectileSignals(ProjectileEntity projectile_scene, ProjectileComponent projectile)
     {
-        projectile.ProjectileHit += OnProjectileHit;
+        projectile_scene.Projectile = projectile;
+        projectile_scene.ProjectileHit += OnProjectileHit;
     }
 
-    private void OnProjectileHit(Node target)
+    private void OnProjectileHit(Node projectile_scene, Node target)
     {
-        GD.Print($"[ProjectileSystem] Projectile hit {target.Name}");
+        var projectile_entity = projectile_scene as ProjectileEntity;
+        projectile_entity.Projectile.CollitionsQuantity++;
+        if (projectile_entity.Projectile.CollitionsQuantity >= projectile_entity.Projectile.LifeCycle.MaxCollitions)
+            projectile_scene.QueueFree();
+
     }
 
     public Node2D LoadProjectile(Marker2D Cannon, ProjectileComponent projectile)
@@ -19,10 +25,14 @@ public partial class ProjectileSystem : Node
             return null;
 
         var projectile_scene = projectile.ProjectileScene.Instantiate<Node2D>();
-        Cannon.GetTree().CurrentScene.AddChild(projectile_scene);
+        projectile_scene.Name = "Bullet_" + Guid.NewGuid().ToString();
+        // Get main scene to add the projectile to the root of the scene tree
+        GetTree().Root.GetChild(0).AddChild(projectile_scene);
 
         projectile_scene.GlobalPosition = Cannon.GlobalPosition;
-        RegisterProjectileSignals(projectile_scene as ProjectileEntity);
+
+        var new_projectile = GetNode<ProjectileEntity>(projectile_scene.GetPath());
+        RegisterProjectileSignals(new_projectile, projectile);
 
         return projectile_scene;
     }
