@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class AmmoComponent : Node
+public partial class AmmoComponent
 {
     [Export] public float MaxAmmo { get; set; } = 30f; // -1 means infinite ammo
     [Export] public float ReloadTime { get; set; } = 1.5f;
@@ -10,7 +10,7 @@ public partial class AmmoComponent : Node
     public float CurrentAmmo { get; set; }
     public float CurrentMagazine { get; set; }
 
-    public override void _Ready()
+    public AmmoComponent()
     {
         CurrentAmmo = MaxAmmo;
         CurrentMagazine = MaxMagazine;

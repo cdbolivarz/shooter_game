@@ -12,7 +12,7 @@ public partial class WeaponFactory : Node
     }
 
     // Returns a new instance of the weapon based on its ID
-    public Node InstantiateWeapon(Node2D entity, string id)
+    public WeaponEntity InstantiateWeapon(Node2D entity, string id)
     {
         var data = _db.GetWeaponData(id);
         if (data == null) return null;
@@ -24,7 +24,7 @@ public partial class WeaponFactory : Node
         weapon_scene.GlobalPosition = entity.GlobalPosition;
         weapon_scene.Position = new Vector2(0, 0);
 
-        var weapon = weapon_scene.GetNode<WeaponEntity>("WeaponEntity");
+        var weapon = entity.GetNode<WeaponEntity>("Weapon");
 
         // AmmoComponent
         weapon.Ammo.MaxAmmo = data.MaxAmmo;
@@ -50,6 +50,6 @@ public partial class WeaponFactory : Node
         weapon.FireRate.Mode = data.FireRateMode;
         
 
-        return weapon_scene;
+        return weapon;
     }
 }

@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class DamageComponent : Node
+public partial class DamageComponent
 {
     [Export] public float DamagePerSecond { get; set; } 
     [Export] public bool IsAreaEffect { get; set; } = false;

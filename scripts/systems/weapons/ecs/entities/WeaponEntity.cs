@@ -1,11 +1,11 @@
 using Godot;
 using System;
 
-public partial class WeaponEntity : Node
+public partial class WeaponEntity : Node2D
 {
-    [Export] public ProjectileComponent Projectile { get; set; }
-    [Export] public FireRateComponent FireRate { get; set; }
-    [Export] public AmmoComponent Ammo { get; set; }
+    public ProjectileComponent Projectile { get; set; } = new ProjectileComponent();
+    public FireRateComponent FireRate { get; set; } = new FireRateComponent();
+    public AmmoComponent Ammo { get; set; } = new AmmoComponent();
     [Export] public Marker2D Cannon { get; set; }
     private double _lastShotTime = 0;
     public ProjectileSystem ProjectileS { get; set; }
@@ -58,6 +58,7 @@ public partial class WeaponEntity : Node
 
     public void TryShoot()
     {
+        
         if (Projectile == null)
             return;
 
@@ -70,11 +71,8 @@ public partial class WeaponEntity : Node
         double currentTime = Time.GetTicksMsec() / 1000.0;
         if (currentTime - _lastShotTime < FireRate.FireRateDelta || Ammo.CurrentAmmo <= 0)
             return;
-
-        // New instance of the projectile to avoid shared state issues
-        var projectile = Projectile.Duplicate() as ProjectileComponent;
-
-        ProjectileS.Shoot(Cannon, projectile);
+        
+        ProjectileS.Shoot(Cannon, Projectile);
 
         if (Ammo.MaxAmmo > 0)
         {

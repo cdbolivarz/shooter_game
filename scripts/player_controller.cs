@@ -69,10 +69,8 @@ public partial class player_controller : CharacterBody2D
         if (Input.IsActionJustPressed("equip_weapon") && _currentWeapon == null)
         {
             
-            var weapon_scene = _weaponFactory.InstantiateWeapon(this, "m16");
-            _currentWeapon = weapon_scene.GetNode<WeaponEntity>("WeaponEntity");
-            _currentWeapon.Cannon = weapon_scene.GetNode<Marker2D>("Cannon");
-
+            _currentWeapon = _weaponFactory.InstantiateWeapon(this, "m16");
+            GD.Print("Equipped weapon: " + _currentWeapon.Name);
         }
         //if (Input.IsActionJustPressed("unequip_weapon") && _currentWeapon != null)
         //{

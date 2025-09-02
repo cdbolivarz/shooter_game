@@ -21,8 +21,9 @@ public partial class ProjectileSystem : Node
 
     public Node2D LoadProjectile(Marker2D Cannon, ProjectileComponent projectile)
     {
-        if (projectile.ProjectileScene == null)
+        if (projectile.ProjectileScene == null){
             return null;
+        }
 
         var projectile_scene = projectile.ProjectileScene.Instantiate<Node2D>();
         projectile_scene.Name = "Bullet_" + Guid.NewGuid().ToString();
@@ -31,14 +32,14 @@ public partial class ProjectileSystem : Node
 
         projectile_scene.GlobalPosition = Cannon.GlobalPosition;
 
-        var new_projectile = GetNode<ProjectileEntity>(projectile_scene.GetPath());
-        RegisterProjectileSignals(new_projectile, projectile);
+        RegisterProjectileSignals(projectile_scene as ProjectileEntity, projectile);
 
         return projectile_scene;
     }
 
-    public void Shoot(Marker2D Cannon, ProjectileComponent projectile)
+    public void Shoot(Marker2D Cannon, ProjectileComponent copy_from_projectile)
     {
+        var projectile = new ProjectileComponent(copy_from_projectile);
 
         var projectile_scene = LoadProjectile(Cannon, projectile);
 

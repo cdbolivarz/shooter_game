@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class LifeCycleComponent : Node
+public partial class LifeCycleComponent
 {
     [Export] public float Duration { get; set; } = 0.0f; // Duration in seconds
     [Export] public float MaxCollitions { get; set; }
