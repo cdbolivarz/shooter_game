@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PlayerController : CharacterBody2D
+public partial class PlayerControllerNew : CharacterBody2D
 {
     [Export] public float moveSpeed = 200.0f;
     [Export] public float airMoveSpeed = 150.0f;
@@ -8,14 +8,14 @@ public partial class PlayerController : CharacterBody2D
     [Export] public float gravity = 980.0f;
     [Export] public float maxFallSpeed = 800.0f;
     
+    [Export] public AnimationPlayer animationPlayer;
+    [Export] public Sprite2D sprite;
     private PlayerStateMachine stateMachine;
-    private AnimationPlayer animationPlayer;
-    private CharacterAttributes attributes;
     private PlayerStateFactory stateFactory;
+    private CharacterAttributes attributes;
     
     public override void _Ready()
     {
-        animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         attributes = new CharacterAttributes(moveSpeed, airMoveSpeed, jumpForce, gravity, maxFallSpeed);
         stateFactory = new PlayerStateFactory(this, animationPlayer, attributes);
         stateMachine = new PlayerStateMachine(stateFactory);
@@ -39,10 +39,10 @@ public partial class PlayerController : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         Vector2 inputDirection = InputSystem.GetMovementInput();
-        if (inputDirection != Vector2.Zero)
-        {
-            stateMachine.HandleMovement(inputDirection);
-        }
+        
+        _HandleSpriteDirection(inputDirection);
+        
+        stateMachine.HandleMovement(inputDirection);
         
         MoveAndSlide();
     }
@@ -51,4 +51,13 @@ public partial class PlayerController : CharacterBody2D
     {
         stateMachine.HandleInputAction(action);
     }
+
+    private void _HandleSpriteDirection(Vector2 inputDirection)
+    {
+        if (inputDirection.X != 0)
+        {
+            sprite.FlipH = inputDirection.X < 0;
+        }
+    }
 }
+
