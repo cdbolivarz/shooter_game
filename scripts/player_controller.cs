@@ -72,11 +72,6 @@ public partial class player_controller : CharacterBody2D
             _currentWeapon = _weaponFactory.InstantiateWeapon(this, "m16");
             GD.Print("Equipped weapon: " + _currentWeapon.Name);
         }
-        //if (Input.IsActionJustPressed("unequip_weapon") && _currentWeapon != null)
-        //{
-        //    _currentWeapon.QueueFree();
-        //    _currentWeapon = null;
-        //}
 
         if (_currentWeapon != null)
             _weaponSystem.HandleInput(_currentWeapon);

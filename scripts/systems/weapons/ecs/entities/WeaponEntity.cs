@@ -7,6 +7,7 @@ public partial class WeaponEntity : Node2D
     public FireRateComponent FireRate { get; set; } = new FireRateComponent();
     public AmmoComponent Ammo { get; set; } = new AmmoComponent();
     [Export] public Marker2D Cannon { get; set; }
+    [Export] public AnimationPlayer WeaponAnimation { get; set; }
     private double _lastShotTime = 0;
     public ProjectileSystem ProjectileS { get; set; }
 
@@ -72,6 +73,7 @@ public partial class WeaponEntity : Node2D
         if (currentTime - _lastShotTime < FireRate.FireRateDelta || Ammo.CurrentAmmo <= 0)
             return;
         
+        WeaponAnimation?.Play("shooting");
         ProjectileS.Shoot(Cannon, Projectile);
 
         if (Ammo.MaxAmmo > 0)
