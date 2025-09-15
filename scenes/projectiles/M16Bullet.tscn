@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://csnv6f48gkdkj"]
+
+[ext_resource type="Texture2D" uid="uid://bopaq7gr7u0om" path="res://assets/materials/projectiles/m16_bullet.webp" id="1_jo8es"]
+[ext_resource type="Script" uid="uid://bt2p3c8fq1h8k" path="res://scripts/systems/weapons/ecs/entities/ProjectileEntity.cs" id="1_obq8t"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5b3jt"]
+radius = 4.00004
+height = 24.0
+
+[node name="M16Bullet" type="RigidBody2D" node_paths=PackedStringArray("ProjectileSprite")]
+mass = 0.085
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_obq8t")
+ProjectileSprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.57084
+scale = Vector2(0.599999, 1)
+shape = SubResource("CapsuleShape2D_5b3jt")
+one_way_collision_margin = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1.19209e-07)
+scale = Vector2(0.0993597, -0.135341)
+texture = ExtResource("1_jo8es")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-10.5, 0)
+scale = Vector2(0.15, 0.3)
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnScreenExited"]

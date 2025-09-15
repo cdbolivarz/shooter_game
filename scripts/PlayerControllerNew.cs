@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 public partial class PlayerControllerNew : CharacterBody2D
 {
@@ -13,18 +14,19 @@ public partial class PlayerControllerNew : CharacterBody2D
     private PlayerStateMachine stateMachine;
     private PlayerStateFactory stateFactory;
     private CharacterAttributes attributes;
-    
+
     public override void _Ready()
     {
+
         attributes = new CharacterAttributes(moveSpeed, airMoveSpeed, jumpForce, gravity, maxFallSpeed);
         stateFactory = new PlayerStateFactory(this, animationPlayer, attributes);
         stateMachine = new PlayerStateMachine(stateFactory);
-        
+
         stateMachine.Initialize(PlayerStateType.Ground);
-        
+
         InputSystem.OnActionTriggered += OnInputActionTriggered;
     }
-    
+
     public override void _ExitTree()
     {
         InputSystem.OnActionTriggered -= OnInputActionTriggered;
@@ -52,11 +54,28 @@ public partial class PlayerControllerNew : CharacterBody2D
         stateMachine.HandleInputAction(action);
     }
 
+
+
     private void _HandleSpriteDirection(Vector2 inputDirection)
     {
         if (inputDirection.X != 0)
         {
             sprite.FlipH = inputDirection.X < 0;
+            if (attributes.CurrentWeapon != null)
+            {
+                attributes.CurrentWeapon.WeaponSprite.FlipH = inputDirection.X < 0;
+
+                // Esto lo cambio despues xD
+                Vector2 weapon_position = attributes.CurrentWeapon.Cannon.Position;
+                float x_cannon_positon = inputDirection.X < 0 ? -1 * Math.Abs(weapon_position.X) : Math.Abs(weapon_position.X);
+                attributes.CurrentWeapon.Cannon.Position = new Vector2(x_cannon_positon, weapon_position.Y);
+
+                Vector2 projectile_linear_speed = attributes.CurrentWeapon.Projectile.LinearSpeed;
+                float x_linear_speed = inputDirection.X < 0 ? -1 * Math.Abs(projectile_linear_speed.X) : Math.Abs(projectile_linear_speed.X);
+                attributes.CurrentWeapon.Projectile.LinearSpeed = new Vector2(x_linear_speed, projectile_linear_speed.Y);
+
+                
+            }
         }
     }
 }

@@ -19,14 +19,14 @@ public class AirborneState : PlayerStateBase
 			animationPlayer.Play(PlayerAnimationEnum.Fall.ToAnimationName());
 		}
 	}
-	
+
 	public override void Update(float delta)
 	{
 		Vector2 velocity = player.Velocity;
 		velocity.Y += attributes.gravity * delta;
 		velocity.Y = Mathf.Min(velocity.Y, attributes.maxFallSpeed);
 		player.Velocity = velocity;
-		
+
 		if (player.IsOnFloor())
 		{
 			shouldTransitionToGround = true;
@@ -35,8 +35,13 @@ public class AirborneState : PlayerStateBase
 		{
 			animationPlayer.Play(PlayerAnimationEnum.Fall.ToAnimationName());
 		}
+		
+		if (attributes.CurrentWeapon != null && attributes.CurrentWeapon.stateMachine != null)
+		{
+			attributes.CurrentWeapon.stateMachine.Update(delta);
+		}
 	}
-	
+
 	public override void HandleInputAction(InputAction action)
 	{
 		switch (action)
@@ -49,11 +54,20 @@ public class AirborneState : PlayerStateBase
 					player.Velocity = velocity;
 				}
 				break;
-				
-			case InputAction.Shoot:
-				animationPlayer.Play(PlayerAnimationEnum.Shoot.ToAnimationName());
+
+			case InputAction.EquipWeapon:
+				//animationPlayer.Play(PlayerAnimationEnum.Shoot.ToAnimationName());
+				if (attributes.CurrentWeapon == null)
+					attributes.CurrentWeapon = WeaponSystem.LoadWeapon(player, "m16");
 				break;
 		}
+
+		// Forward the action to the weapon's state machine if it exists
+		if (attributes.CurrentWeapon != null && attributes.CurrentWeapon.stateMachine != null)
+		{
+			attributes.CurrentWeapon.stateMachine.HandleInputAction(action);
+		}
+		
 	}
 	
 	public override void HandleMovement(Vector2 inputDirection)

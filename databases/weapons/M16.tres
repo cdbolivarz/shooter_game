@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://buwmv18b3q01s"]
+
+[ext_resource type="Script" uid="uid://dclg3e2uulivj" path="res://databases/weapons/WeaponData.cs" id="1_o8kko"]
+[ext_resource type="PackedScene" uid="uid://csnv6f48gkdkj" path="res://scenes/projectiles/M16Bullet.tscn" id="1_rswbt"]
+[ext_resource type="PackedScene" uid="uid://p7lqqj64gb8r" path="res://scenes/weapons/M16.tscn" id="2_n5g0r"]
+
+[resource]
+script = ExtResource("1_o8kko")
+Id = "m16"
+DisplayName = "M16 Rifle"
+WeaponScene = ExtResource("2_n5g0r")
+ProjectileScene = ExtResource("1_rswbt")
+LinearSpeed = Vector2(3000, 0)
+Mode = "Linear"
+Duration = -1.0
+MaxCollitions = 1.0
+OnExpireEffect = ""
+OnCollideEffect = ""
+DamagePerSecond = 5.0
+IsAreaEffect = false
+AreaRadius = 0.0
+CollitionDamage = 20.0
+FireRateDelta = 0.1
+FireRateMode = 0
+MaxAmmo = 30.0
+ReloadTime = 1.5
+MaxMagazine = 150.0
+metadata/_custom_type_script = "uid://dclg3e2uulivj"

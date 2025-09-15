@@ -21,6 +21,9 @@ tracks/0/keys = {
 "values": [-0.000403907]
 }
 
+[sub_resource type="Animation" id="Animation_445t1"]
+resource_name = "fall"
+
 [sub_resource type="Animation" id="Animation_0vot4"]
 resource_name = "idle"
 loop_mode = 1
@@ -37,17 +40,14 @@ tracks/0/keys = {
 "values": [Vector2(-2, 1), Vector2(-1.19209e-07, -20)]
 }
 
-[sub_resource type="Animation" id="Animation_1agie"]
-resource_name = "walk"
-
 [sub_resource type="Animation" id="Animation_7jjw8"]
 resource_name = "jump"
 
 [sub_resource type="Animation" id="Animation_3ji4x"]
 resource_name = "shoot"
 
-[sub_resource type="Animation" id="Animation_445t1"]
-resource_name = "fall"
+[sub_resource type="Animation" id="Animation_1agie"]
+resource_name = "walk"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y88lp"]
 _data = {
