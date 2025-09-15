@@ -1,15 +1,26 @@
 using Godot;
 using System.Collections.Generic;
 
-public partial class WeaponDatabase : Node
+// Singleton pattern for weapon database
+public sealed class WeaponDatabase
 {
     private Dictionary<string, WeaponData> _weapons = new();
+    private static WeaponDatabase _instance;
 
-    public override void _Ready()
+    private WeaponDatabase()
     {
         // Preload or load dynamically
         RegisterWeapon(ResourceLoader.Load<WeaponData>("res://databases/weapons/M16.tres"));
         // RegisterWeapon(ResourceLoader.Load<WeaponData>("res://Data/Weapons/Shotgun.tres"));
+    }
+
+    public static WeaponDatabase GetInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new WeaponDatabase();
+        }
+        return _instance;
     }
 
     private void RegisterWeapon(WeaponData data)

@@ -12,12 +12,17 @@ public class GroundState : PlayerStateBase
 		shouldTransitionToAirborne = false;
 		animationPlayer.Play(PlayerAnimationEnum.Idle.ToAnimationName());
 	}
-	
+
 	public override void Update(float delta)
 	{
 		if (!player.IsOnFloor())
 		{
 			shouldTransitionToAirborne = true;
+		}
+
+		if (attributes.CurrentWeapon != null && attributes.CurrentWeapon.stateMachine != null)
+		{
+			attributes.CurrentWeapon.stateMachine.Update(delta);
 		}
 	}
 	
@@ -33,9 +38,17 @@ public class GroundState : PlayerStateBase
 				shouldTransitionToAirborne = true;
 				break;
 				
-			case InputAction.Shoot:
-				animationPlayer.Play(PlayerAnimationEnum.Shoot.ToAnimationName());
+			case InputAction.EquipWeapon:
+				//animationPlayer.Play(PlayerAnimationEnum.Shoot.ToAnimationName());
+				if (attributes.CurrentWeapon == null)
+					attributes.CurrentWeapon = WeaponSystem.LoadWeapon(player, "m16");
 				break;
+		}
+
+		// Forward the action to the weapon's state machine if it exists
+		if (attributes.CurrentWeapon != null && attributes.CurrentWeapon.stateMachine != null)
+		{
+			attributes.CurrentWeapon.stateMachine.HandleInputAction(action);
 		}
 	}
 	

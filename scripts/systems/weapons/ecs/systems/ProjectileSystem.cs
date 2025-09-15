@@ -1,16 +1,16 @@
 using System;
 using Godot;
 
-public partial class ProjectileSystem : Node
+public partial class ProjectileSystem
 {
 
-    public void RegisterProjectileSignals(ProjectileEntity projectile_scene, ProjectileComponent projectile)
+    public static void RegisterProjectileSignals(ProjectileEntity projectile_scene, ProjectileComponent projectile)
     {
         projectile_scene.Projectile = projectile;
         projectile_scene.ProjectileHit += OnProjectileHit;
     }
 
-    private void OnProjectileHit(Node projectile_scene, Node target)
+    private static void OnProjectileHit(Node projectile_scene, Node target)
     {
         var projectile_entity = projectile_scene as ProjectileEntity;
         projectile_entity.Projectile.CollitionsQuantity++;
@@ -19,7 +19,7 @@ public partial class ProjectileSystem : Node
 
     }
 
-    public Node2D LoadProjectile(Marker2D Cannon, ProjectileComponent projectile)
+    public static Node2D LoadProjectile(Marker2D Cannon, ProjectileComponent projectile)
     {
         if (projectile.ProjectileScene == null){
             return null;
@@ -28,16 +28,18 @@ public partial class ProjectileSystem : Node
         var projectile_scene = projectile.ProjectileScene.Instantiate<Node2D>();
         projectile_scene.Name = "Bullet_" + Guid.NewGuid().ToString();
         // Get main scene to add the projectile to the root of the scene tree
-        GetTree().Root.GetChild(0).AddChild(projectile_scene);
+        Cannon.AddChild(projectile_scene);
 
         projectile_scene.GlobalPosition = Cannon.GlobalPosition;
+        ProjectileEntity projectile_entity = projectile_scene as ProjectileEntity;
+        projectile_entity.ProjectileSprite.FlipH = Cannon.Position.X < 0;
 
-        RegisterProjectileSignals(projectile_scene as ProjectileEntity, projectile);
+        RegisterProjectileSignals(projectile_entity, projectile);
 
         return projectile_scene;
     }
 
-    public void Shoot(Marker2D Cannon, ProjectileComponent copy_from_projectile)
+    public static void Shoot(Marker2D Cannon, ProjectileComponent copy_from_projectile)
     {
         var projectile = new ProjectileComponent(copy_from_projectile);
 
@@ -57,7 +59,7 @@ public partial class ProjectileSystem : Node
 
     }
 
-    public void LinearTrayectory(RigidBody2D projectile_scene, ProjectileComponent projectile)
+    public static void LinearTrayectory(RigidBody2D projectile_scene, ProjectileComponent projectile)
     {
         projectile_scene.LinearVelocity = projectile.LinearSpeed;
     }

@@ -1,13 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c1h36akeebu4c"]
+[gd_scene load_steps=6 format=3 uid="uid://c1h36akeebu4c"]
 
 [ext_resource type="PackedScene" uid="uid://ddijh8ocopaij" path="res://scenes/platforms/rock.tscn" id="1_jw006"]
 [ext_resource type="PackedScene" uid="uid://cjhai1yqxa0pm" path="res://cameras/main_camera.tscn" id="2_ucgi8"]
-[ext_resource type="PackedScene" uid="uid://p4iervmwjci7" path="res://entities/player/player_1.tscn" id="3_vrmse"]
-[ext_resource type="Script" uid="uid://blplmsbu4palt" path="res://scripts/systems/weapons/ecs/systems/WeaponSystem.cs" id="5_oye7q"]
-[ext_resource type="Script" uid="uid://5ci62a6md7l1" path="res://scripts/systems/weapons/ecs/systems/ProjectileSystem.cs" id="6_2p8op"]
+[ext_resource type="PackedScene" uid="uid://ctfikwrgr0h5g" path="res://entities/player/player_new.tscn" id="4_1rv7t"]
 [ext_resource type="Texture2D" uid="uid://cvhemu7iumv0n" path="res://assets/materials/platforms/rock.png" id="7_ucgi8"]
-[ext_resource type="Script" uid="uid://cr5rj2bnxvv1h" path="res://databases/weapons/WeaponDatabase.cs" id="8_jcmaj"]
-[ext_resource type="Script" uid="uid://dtdg77moqf2nd" path="res://scripts/systems/weapons/WeaponFactory.cs" id="8_vrmse"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucgi8"]
 size = Vector2(466.179, 119.257)
@@ -24,16 +20,6 @@ position = Vector2(215, -6)
 
 [node name="MainCamera" parent="." instance=ExtResource("2_ucgi8")]
 
-[node name="Player1" parent="." instance=ExtResource("3_vrmse")]
-position = Vector2(-379, -170)
-scale = Vector2(0.876, 1)
-
-[node name="WeaponSystem" type="Node" parent="."]
-script = ExtResource("5_oye7q")
-
-[node name="ProjectileSystem" type="Node" parent="."]
-script = ExtResource("6_2p8op")
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(162, 219)
 rotation = -0.503057
@@ -49,9 +35,5 @@ rotation = -0.68511
 scale = Vector2(0.543133, 0.548035)
 texture = ExtResource("7_ucgi8")
 
-[node name="WeaponFactory" type="Node" parent="."]
-script = ExtResource("8_vrmse")
-DatabasePath = NodePath("../WeaponDatabase")
-
-[node name="WeaponDatabase" type="Node" parent="."]
-script = ExtResource("8_jcmaj")
+[node name="Player1" parent="." instance=ExtResource("4_1rv7t")]
+position = Vector2(-368, -135)

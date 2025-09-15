@@ -7,11 +7,12 @@
 radius = 4.00004
 height = 24.0
 
-[node name="M16Bullet" type="RigidBody2D"]
+[node name="M16Bullet" type="RigidBody2D" node_paths=PackedStringArray("ProjectileSprite")]
 mass = 0.085
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_obq8t")
+ProjectileSprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.57084

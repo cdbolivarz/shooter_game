@@ -1,5 +1,9 @@
 public enum InputAction
 {
     Jump,
-    Shoot
+    Shoot,
+    ShootReleased,
+    Reload,
+    SwitchWeapon,
+    EquipWeapon
 }

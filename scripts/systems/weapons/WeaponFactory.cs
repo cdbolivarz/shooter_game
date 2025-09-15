@@ -1,19 +1,12 @@
 using Godot;
 
-public partial class WeaponFactory : Node
+public class WeaponFactory
 // This class is responsible for creating weapon instances based on WeaponData, cache can be added here
 {
-    [Export] public NodePath DatabasePath;
-    private WeaponDatabase _db;
 
-    public override void _Ready()
+    public static WeaponEntity InstantiateWeapon(Node2D entity, string id)
     {
-        _db = GetNode<WeaponDatabase>(DatabasePath);
-    }
-
-    // Returns a new instance of the weapon based on its ID
-    public WeaponEntity InstantiateWeapon(Node2D entity, string id)
-    {
+        var _db = WeaponDatabase.GetInstance();
         var data = _db.GetWeaponData(id);
         if (data == null) return null;
 

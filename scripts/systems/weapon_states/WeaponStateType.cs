@@ -1,5 +1,6 @@
-public enum WeaponState
+public enum WeaponStateType
 {
+    None,
     NoShooting,
     Shooting,
     Reloading,
