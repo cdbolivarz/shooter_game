@@ -6,8 +6,8 @@ public class NoShootingState : WeaponStateBase
     private bool shouldTransitionToReload = false;
     private bool shouldTransitionToSwitchWeapon = false;
 
-    public NoShootingState(WeaponEntity weapon) :
-        base(weapon)
+    public NoShootingState(WeaponSystem weaponSystem) :
+        base(weaponSystem)
     { }
 
     public override void Enter()
@@ -42,12 +42,12 @@ public class NoShootingState : WeaponStateBase
         switch (action)
         {
             case InputAction.Shoot:
-                weapon.Ammo.IsReloading = false;
+                weaponSystem.currentWeapon.Ammo.IsReloading = false;
                 shouldTransitionToShoot = true;
                 break;
             case InputAction.Reload:
-                if (weapon.Ammo.CurrentAmmo < weapon.Ammo.MaxAmmo && !weapon
-                    .Ammo.IsReloading && weapon.Ammo.CurrentMagazine > 0)
+                if (weaponSystem.currentWeapon.Ammo.CurrentAmmo < weaponSystem.currentWeapon.Ammo.MaxAmmo && !weaponSystem.currentWeapon
+                    .Ammo.IsReloading && weaponSystem.currentWeapon.Ammo.CurrentMagazine > 0)
                 {
                     shouldTransitionToReload = true;
                 }

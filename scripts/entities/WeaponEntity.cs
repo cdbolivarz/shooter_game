@@ -9,16 +9,8 @@ public partial class WeaponEntity : Node2D
     [Export] public Sprite2D WeaponSprite { get; set; }
     [Export] public AnimationPlayer WeaponAnimation { get; set; }
     public double lastShotTime = 0;
-    public WeaponStateMachine stateMachine;
-    private WeaponStateFactory _stateFactory;
 
-
-    public WeaponEntity()
-    {
-        _stateFactory = new WeaponStateFactory(this);
-        stateMachine = new WeaponStateMachine(_stateFactory);
-        stateMachine.Initialize(WeaponStateType.NoShooting);
-    }
+    public WeaponEntity() {}
 
 
 }

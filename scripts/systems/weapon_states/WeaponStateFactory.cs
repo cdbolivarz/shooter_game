@@ -2,11 +2,11 @@ using Godot;
 
 public class WeaponStateFactory
 {
-    private WeaponEntity weapon;
+    private WeaponSystem weaponSystem;
     
-    public WeaponStateFactory(WeaponEntity weapon)
+    public WeaponStateFactory(WeaponSystem weaponSystem)
     {
-        this.weapon = weapon;
+        this.weaponSystem = weaponSystem;
     }
 
     
@@ -14,10 +14,10 @@ public class WeaponStateFactory
     {
         return stateType switch
         {
-            WeaponStateType.Shooting => new ShootingState(weapon),
-            WeaponStateType.NoShooting => new NoShootingState(weapon),
-            WeaponStateType.SwitchingWeapon => new SwitchingWeaponState(weapon),
-            WeaponStateType.Reloading => new ReloadingState(weapon),
+            WeaponStateType.Shooting => new ShootingState(weaponSystem),
+            WeaponStateType.NoShooting => new NoShootingState(weaponSystem),
+            WeaponStateType.SwitchingWeapon => new SwitchingWeaponState(weaponSystem),
+            WeaponStateType.Reloading => new ReloadingState(weaponSystem),
             _ => null
         };
     }

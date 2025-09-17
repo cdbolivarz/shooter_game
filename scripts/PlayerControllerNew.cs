@@ -14,12 +14,13 @@ public partial class PlayerControllerNew : CharacterBody2D
     private PlayerStateMachine stateMachine;
     private PlayerStateFactory stateFactory;
     private CharacterAttributes attributes;
+    private PlayerSystems playerSystems;
 
     public override void _Ready()
     {
-
+        playerSystems = new PlayerSystems();
         attributes = new CharacterAttributes(moveSpeed, airMoveSpeed, jumpForce, gravity, maxFallSpeed);
-        stateFactory = new PlayerStateFactory(this, animationPlayer, attributes);
+        stateFactory = new PlayerStateFactory(this, animationPlayer, attributes, playerSystems);
         stateMachine = new PlayerStateMachine(stateFactory);
 
         stateMachine.Initialize(PlayerStateType.Ground);
@@ -31,11 +32,12 @@ public partial class PlayerControllerNew : CharacterBody2D
     {
         InputSystem.OnActionTriggered -= OnInputActionTriggered;
     }
-    
+
     public override void _Process(double delta)
     {
         InputSystem.ProcessInput();
         stateMachine.Update((float)delta);
+        playerSystems.Update((float)delta);
     }
     
     public override void _PhysicsProcess(double delta)
@@ -48,7 +50,7 @@ public partial class PlayerControllerNew : CharacterBody2D
         
         MoveAndSlide();
     }
-    
+
     private void OnInputActionTriggered(InputAction action)
     {
         stateMachine.HandleInputAction(action);
@@ -61,18 +63,18 @@ public partial class PlayerControllerNew : CharacterBody2D
         if (inputDirection.X != 0)
         {
             sprite.FlipH = inputDirection.X < 0;
-            if (attributes.CurrentWeapon != null)
+            if (playerSystems.weaponSystem.currentWeapon != null)
             {
-                attributes.CurrentWeapon.WeaponSprite.FlipH = inputDirection.X < 0;
+                playerSystems.weaponSystem.currentWeapon.WeaponSprite.FlipH = inputDirection.X < 0;
 
                 // Esto lo cambio despues xD
-                Vector2 weapon_position = attributes.CurrentWeapon.Cannon.Position;
+                Vector2 weapon_position = playerSystems.weaponSystem.currentWeapon.Cannon.Position;
                 float x_cannon_positon = inputDirection.X < 0 ? -1 * Math.Abs(weapon_position.X) : Math.Abs(weapon_position.X);
-                attributes.CurrentWeapon.Cannon.Position = new Vector2(x_cannon_positon, weapon_position.Y);
+                playerSystems.weaponSystem.currentWeapon.Cannon.Position = new Vector2(x_cannon_positon, weapon_position.Y);
 
-                Vector2 projectile_linear_speed = attributes.CurrentWeapon.Projectile.LinearSpeed;
+                Vector2 projectile_linear_speed = playerSystems.weaponSystem.currentWeapon.Projectile.LinearSpeed;
                 float x_linear_speed = inputDirection.X < 0 ? -1 * Math.Abs(projectile_linear_speed.X) : Math.Abs(projectile_linear_speed.X);
-                attributes.CurrentWeapon.Projectile.LinearSpeed = new Vector2(x_linear_speed, projectile_linear_speed.Y);
+                playerSystems.weaponSystem.currentWeapon.Projectile.LinearSpeed = new Vector2(x_linear_speed, projectile_linear_speed.Y);
 
                 
             }

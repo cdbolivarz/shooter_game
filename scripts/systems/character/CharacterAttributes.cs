@@ -7,8 +7,6 @@ public class CharacterAttributes
     [Export] public float jumpForce = -400.0f;
     [Export] public float gravity = 980.0f;
     [Export] public float maxFallSpeed = 800.0f;
-
-    public WeaponEntity CurrentWeapon { get; set; }
     
     public CharacterAttributes() { }
     

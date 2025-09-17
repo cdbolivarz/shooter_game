@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://csnv6f48gkdkj"]
 
 [ext_resource type="Texture2D" uid="uid://bopaq7gr7u0om" path="res://assets/materials/projectiles/m16_bullet.webp" id="1_jo8es"]
-[ext_resource type="Script" uid="uid://bt2p3c8fq1h8k" path="res://scripts/systems/weapons/ecs/entities/ProjectileEntity.cs" id="1_obq8t"]
+[ext_resource type="Script" uid="uid://bt2p3c8fq1h8k" path="res://scripts/entities/ProjectileEntity.cs" id="1_obq8t"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5b3jt"]
 radius = 4.00004

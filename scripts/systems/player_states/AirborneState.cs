@@ -4,8 +4,8 @@ public class AirborneState : PlayerStateBase
 {
 	private bool shouldTransitionToGround = false;
 	
-	public AirborneState(CharacterBody2D player, AnimationPlayer animationPlayer, CharacterAttributes attributes) 
-		: base(player, animationPlayer, attributes) { }
+	public AirborneState(CharacterBody2D player, AnimationPlayer animationPlayer, CharacterAttributes attributes, PlayerSystems playerSystems) 
+		: base(player, animationPlayer, attributes, playerSystems) { }
 	
 	public override void Enter()
 	{
@@ -36,10 +36,6 @@ public class AirborneState : PlayerStateBase
 			animationPlayer.Play(PlayerAnimationEnum.Fall.ToAnimationName());
 		}
 		
-		if (attributes.CurrentWeapon != null && attributes.CurrentWeapon.stateMachine != null)
-		{
-			attributes.CurrentWeapon.stateMachine.Update(delta);
-		}
 	}
 
 	public override void HandleInputAction(InputAction action)
@@ -56,17 +52,28 @@ public class AirborneState : PlayerStateBase
 				break;
 
 			case InputAction.EquipWeapon:
-				//animationPlayer.Play(PlayerAnimationEnum.Shoot.ToAnimationName());
-				if (attributes.CurrentWeapon == null)
-					attributes.CurrentWeapon = WeaponSystem.LoadWeapon(player, "m16");
+				if (playerSystems.weaponSystem.currentWeapon == null)
+					playerSystems.weaponSystem.LoadWeapon(player, "m16");
+				break;
+			case InputAction.Shoot:
+				if (playerSystems.weaponSystem.currentWeapon != null)
+					//animationPlayer.Play(PlayerAnimationEnum.Shoot.ToAnimationName());
+					playerSystems.weaponSystem.HandleAction(InputAction.Shoot);
+				break;
+			case InputAction.Reload:
+				if (playerSystems.weaponSystem.currentWeapon != null)
+					playerSystems.weaponSystem.HandleAction(InputAction.Reload);
+				break;
+			case InputAction.SwitchWeapon:
+				if (playerSystems.weaponSystem.currentWeapon != null)
+					playerSystems.weaponSystem.HandleAction(InputAction.SwitchWeapon);
+				break;
+			case InputAction.ShootReleased:
+				if (playerSystems.weaponSystem.currentWeapon != null)
+					playerSystems.weaponSystem.HandleAction(InputAction.ShootReleased);
 				break;
 		}
 
-		// Forward the action to the weapon's state machine if it exists
-		if (attributes.CurrentWeapon != null && attributes.CurrentWeapon.stateMachine != null)
-		{
-			attributes.CurrentWeapon.stateMachine.HandleInputAction(action);
-		}
 		
 	}
 	

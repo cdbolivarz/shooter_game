@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://p7lqqj64gb8r"]
 
 [ext_resource type="Texture2D" uid="uid://by3akgssb215b" path="res://assets/materials/weapons/m16.webp" id="1_3iqmb"]
-[ext_resource type="Script" uid="uid://c5yp5p46avcoe" path="res://scripts/systems/weapons/ecs/entities/WeaponEntity.cs" id="3_qomni"]
+[ext_resource type="Script" uid="uid://c5yp5p46avcoe" path="res://scripts/entities/WeaponEntity.cs" id="3_qomni"]
 
 [sub_resource type="Animation" id="Animation_qomni"]
 length = 0.001

@@ -28,7 +28,7 @@ public class WeaponStateMachine
         }
     }
     
-    public void HandleInputAction(InputAction action)
+    public void HandleAction(InputAction action)
     {
         currentState?.HandleAction(action);
     }

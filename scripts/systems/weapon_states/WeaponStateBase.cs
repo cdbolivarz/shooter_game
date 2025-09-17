@@ -2,11 +2,11 @@ using Godot;
 
 public abstract class WeaponStateBase : IWeaponState
 {
-    protected WeaponEntity weapon;
+    protected WeaponSystem weaponSystem;
     
-    protected WeaponStateBase(WeaponEntity weapon)
+    protected WeaponStateBase(WeaponSystem weaponSystem)
     {
-        this.weapon = weapon;
+        this.weaponSystem = weaponSystem;
     }
     
     public virtual void Enter() { }

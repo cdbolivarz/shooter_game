@@ -10,8 +10,8 @@ public class ReloadingState : WeaponStateBase
 
 
 
-    public ReloadingState(WeaponEntity weapon) :
-        base(weapon)
+    public ReloadingState(WeaponSystem weaponSystem) :
+        base(weaponSystem)
     { }
 
     public override void Enter()
@@ -20,7 +20,7 @@ public class ReloadingState : WeaponStateBase
         shouldTransitionToShoot = false;
         shouldTransitionToSwitchWeapon = false;
 
-        _reloadTimer = weapon.Ammo.ReloadTime;
+        _reloadTimer = weaponSystem.currentWeapon.Ammo.ReloadTime;
     }
 
     public override void Update(float delta)
@@ -28,7 +28,7 @@ public class ReloadingState : WeaponStateBase
         _reloadTimer -= delta;
         if (_reloadTimer <= 0)
         {
-            WeaponSystem.Reload(weapon);
+            weaponSystem.Reload();
             shouldTransitionToNoShooting = true;
         }
     }
@@ -60,7 +60,7 @@ public class ReloadingState : WeaponStateBase
         switch (action)
         {
             case InputAction.Shoot:
-                if (weapon.Ammo.CurrentAmmo > 0)
+                if (weaponSystem.currentWeapon.Ammo.CurrentAmmo > 0)
                 {
                     shouldTransitionToShoot = true;
                 }

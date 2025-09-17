@@ -6,8 +6,8 @@ public class SwitchingWeaponState : WeaponStateBase
     private bool shouldTransitionToShoot = false;
     private bool shouldTransitionToReload = false;
     private bool shouldTransitionToNoShoot = false;
-    public SwitchingWeaponState(WeaponEntity weapon) :
-        base(weapon)
+    public SwitchingWeaponState(WeaponSystem weaponSystem) :
+        base(weaponSystem)
     { }
 
     public override void Enter()
