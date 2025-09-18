@@ -5,5 +5,6 @@ public enum InputAction
     ShootReleased,
     Reload,
     SwitchWeapon,
-    EquipWeapon
+    EquipWeapon,
+    DownPlataform
 }

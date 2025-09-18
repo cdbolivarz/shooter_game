@@ -6,17 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://cvhemu7iumv0n" path="res://assets/materials/platforms/rock.png" id="7_ucgi8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucgi8"]
-size = Vector2(466.179, 119.257)
+size = Vector2(466.179, 50.7741)
 
 [node name="World" type="Node2D"]
 
 [node name="Platforms" type="Node2D" parent="."]
 
 [node name="Rock" parent="Platforms" instance=ExtResource("1_jw006")]
-position = Vector2(-298, -7)
+position = Vector2(-371, 188)
 
 [node name="Rock2" parent="Platforms" instance=ExtResource("1_jw006")]
-position = Vector2(215, -6)
+position = Vector2(-1, 0)
+
+[node name="Rock3" parent="Platforms" instance=ExtResource("1_jw006")]
+position = Vector2(263, 176)
 
 [node name="MainCamera" parent="." instance=ExtResource("2_ucgi8")]
 
@@ -25,15 +28,16 @@ position = Vector2(162, 219)
 rotation = -0.503057
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(214.85, -165.504)
+position = Vector2(-503.45, -688.178)
 rotation = -0.716077
 shape = SubResource("RectangleShape2D_ucgi8")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(214, -158)
-rotation = -0.68511
-scale = Vector2(0.543133, 0.548035)
+position = Vector2(-502.708, -712.646)
+rotation = 2.44531
+scale = Vector2(0.537906, 0.512376)
 texture = ExtResource("7_ucgi8")
 
 [node name="Player1" parent="." instance=ExtResource("4_1rv7t")]
 position = Vector2(-368, -135)
+jumpForce = -650.0

@@ -7,7 +7,9 @@ public static class InputSystem
 
     public static void ProcessInput()
     {
-        if (Input.IsActionJustPressed("jump"))
+        if (Input.IsActionPressed("bend") && Input.IsActionJustPressed("jump"))
+            OnActionTriggered?.Invoke(InputAction.DownPlataform);
+        else if (Input.IsActionJustPressed("jump"))
             OnActionTriggered?.Invoke(InputAction.Jump);
         if (Input.IsActionJustPressed("shoot"))
             OnActionTriggered?.Invoke(InputAction.Shoot);
@@ -19,6 +21,7 @@ public static class InputSystem
             OnActionTriggered?.Invoke(InputAction.EquipWeapon);
         if (Input.IsActionJustReleased("shoot"))
             OnActionTriggered?.Invoke(InputAction.ShootReleased);
+        
     }
     
     public static Vector2 GetMovementInput()

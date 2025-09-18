@@ -32,7 +32,7 @@ public class GroundState : PlayerStateBase
 				animationPlayer.Play(PlayerAnimationEnum.Jump.ToAnimationName());
 				shouldTransitionToAirborne = true;
 				break;
-				
+
 			case InputAction.EquipWeapon:
 				if (playerSystems.weaponSystem.currentWeapon == null)
 					playerSystems.weaponSystem.LoadWeapon(player, "m16");
@@ -53,6 +53,9 @@ public class GroundState : PlayerStateBase
 			case InputAction.ShootReleased:
 				if (playerSystems.weaponSystem.currentWeapon != null)
 					playerSystems.weaponSystem.HandleAction(InputAction.ShootReleased);
+				break;
+			case InputAction.DownPlataform:
+				playerSystems.platformSystem?.DropThroughPlatform(player);
 				break;
 		}
 

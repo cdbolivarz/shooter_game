@@ -2,11 +2,11 @@ using Godot;
 
 public class CharacterAttributes
 {
-    [Export] public float moveSpeed = 200.0f;
-    [Export] public float airMoveSpeed = 150.0f;
-    [Export] public float jumpForce = -400.0f;
-    [Export] public float gravity = 980.0f;
-    [Export] public float maxFallSpeed = 800.0f;
+    [Export] public float moveSpeed { get; set; } = 200.0f;
+    [Export] public float airMoveSpeed { get; set; } = 150.0f;
+    [Export] public float jumpForce { get; set; } = -400.0f;
+    [Export] public float gravity { get; set; } = 980.0f;
+    [Export] public float maxFallSpeed { get; set; } = 800.0f;
     
     public CharacterAttributes() { }
     
