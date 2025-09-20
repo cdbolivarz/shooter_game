@@ -13,6 +13,10 @@ public partial class ProjectileSystem
     private static void OnProjectileHit(Node projectile_scene, Node target)
     {
         var projectile_entity = projectile_scene as ProjectileEntity;
+        
+        if (target.HasMethod("TakeDamage"))
+            target.CallDeferred("TakeDamage", projectile_entity.Projectile.Damage.CollitionDamage);
+
         projectile_entity.Projectile.CollitionsQuantity++;
         if (projectile_entity.Projectile.CollitionsQuantity >= projectile_entity.Projectile.LifeCycle.MaxCollitions)
             projectile_scene.QueueFree();

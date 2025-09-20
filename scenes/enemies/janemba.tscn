@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://baeus2q46socu"]
+
+[ext_resource type="Texture2D" uid="uid://cakfdfl0cr6ld" path="res://assets/enemies/janemba.webp" id="1_coqeo"]
+[ext_resource type="Script" uid="uid://n12sjfaphb4i" path="res://scripts/EnemyController.cs" id="2_weixv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_coqeo"]
+radius = 71.0
+height = 422.0
+
+[node name="Janemba" type="CharacterBody2D"]
+script = ExtResource("2_weixv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, -1)
+scale = Vector2(0.4735, 0.480964)
+texture = ExtResource("1_coqeo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9, -8)
+shape = SubResource("CapsuleShape2D_coqeo")
