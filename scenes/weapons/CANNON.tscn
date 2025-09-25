@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://bglmdfsl5t37w"]
+
+[ext_resource type="Script" uid="uid://c5yp5p46avcoe" path="res://scripts/entities/WeaponEntity.cs" id="1_j3123"]
+[ext_resource type="Texture2D" uid="uid://bhck5i53au5t8" path="res://assets/materials/weapons/сannon.png" id="2_j3123"]
+
+[sub_resource type="Animation" id="Animation_qomni"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nlk1m"]
+resource_name = "shooting"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-10, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_onp7j"]
+_data = {
+&"RESET": SubResource("Animation_qomni"),
+&"shooting": SubResource("Animation_nlk1m")
+}
+
+[node name="Weapon" type="Node2D" node_paths=PackedStringArray("Cannon", "WeaponSprite", "WeaponAnimation")]
+position = Vector2(31, 11)
+script = ExtResource("1_j3123")
+Cannon = NodePath("Sprite2D/Cannon")
+WeaponSprite = NodePath("Sprite2D")
+WeaponAnimation = NodePath("AnimationPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.00567137
+scale = Vector2(0.0904574, 0.0805155)
+texture = ExtResource("2_j3123")
+
+[node name="Cannon" type="Marker2D" parent="Sprite2D"]
+position = Vector2(2089.38, -707.938)
+scale = Vector2(11.0549, 12.42)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_onp7j")
+}

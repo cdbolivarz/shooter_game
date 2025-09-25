@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://bkpjbtam3nr0h"]
+
+[ext_resource type="PackedScene" uid="uid://cgxm52s5oppwu" path="res://scenes/projectiles/5_56_55gr.tscn" id="1_evxcs"]
+[ext_resource type="Script" uid="uid://dclg3e2uulivj" path="res://databases/weapons/WeaponData.cs" id="1_lpom6"]
+[ext_resource type="PackedScene" uid="uid://cakgou6thki26" path="res://scenes/weapons/FAMAS.tscn" id="2_6atrb"]
+
+[resource]
+script = ExtResource("1_lpom6")
+Id = "famas"
+DisplayName = "FAMAS"
+WeaponScene = ExtResource("2_6atrb")
+ProjectileScene = ExtResource("1_evxcs")
+LinearSpeed = Vector2(3500, 0)
+Mode = "Linear"
+Duration = -1.0
+MaxCollitions = 1.0
+OnExpireEffect = ""
+OnCollideEffect = ""
+DamagePerSecond = 0.0
+IsAreaEffect = false
+AreaRadius = 0.0
+CollitionDamage = 20.0
+FireRateDelta = 0.1
+FireRateMode = 0
+MaxAmmo = 30.0
+ReloadTime = 1.0
+MaxMagazine = 120.0
+metadata/_custom_type_script = "uid://dclg3e2uulivj"

@@ -53,7 +53,7 @@ public class AirborneState : PlayerStateBase
 
 			case InputAction.EquipWeapon:
 				if (playerSystems.weaponSystem.currentWeapon == null)
-					playerSystems.weaponSystem.LoadWeapon(player, "m16");
+					playerSystems.weaponSystem.EquipWeapon(player);
 				break;
 			case InputAction.Shoot:
 				if (playerSystems.weaponSystem.currentWeapon != null)

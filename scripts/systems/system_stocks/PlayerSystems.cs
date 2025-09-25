@@ -5,7 +5,7 @@ public class PlayerSystems
 
     public PlayerSystems()
     {
-        weaponSystem = new WeaponSystem();
+        weaponSystem = new WeaponSystem(weaponInventory: new string[] { "m16", "famas", "cannon" });
         platformSystem = new PlatformSystem();
     }
 

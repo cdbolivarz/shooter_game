@@ -1,8 +1,13 @@
 using Godot;
+using System.Collections.Generic;
 using System;
+using System.Dynamic;
+
 
 public partial class WeaponSystem
 {
+    // This could be expanded to manage multiple weapons and inventory systems
+    public string[] weaponInventory { get; set; }
     public WeaponEntity currentWeapon { get; set; }
     public WeaponStateMachine stateMachine;
     private WeaponStateFactory _stateFactory;
@@ -10,13 +15,24 @@ public partial class WeaponSystem
     public WeaponSystem()
     {
         currentWeapon = null;
+        weaponInventory = null;
         _stateFactory = new WeaponStateFactory(this);
         stateMachine = new WeaponStateMachine(_stateFactory);
         stateMachine.Initialize(WeaponStateType.NoShooting);
     }
 
-    public WeaponSystem(WeaponEntity initialWeapon)
+    public WeaponSystem(string[] weaponInventory)
     {
+        currentWeapon = null;
+        this.weaponInventory = weaponInventory;
+        _stateFactory = new WeaponStateFactory(this);
+        stateMachine = new WeaponStateMachine(_stateFactory);
+        stateMachine.Initialize(WeaponStateType.NoShooting);
+    }
+
+    public WeaponSystem(WeaponEntity initialWeapon, string[] weaponInventory)
+    {
+        this.weaponInventory = weaponInventory;
         currentWeapon = initialWeapon;
         _stateFactory = new WeaponStateFactory(this);
         stateMachine = new WeaponStateMachine(_stateFactory);
@@ -72,19 +88,47 @@ public partial class WeaponSystem
         currentWeapon.lastShotTime = currentTime;
     }
 
-    public void LoadWeapon(Node2D parent, string weaponId)
+    public string GetNextWeaponId()
     {
+        if (currentWeapon == null) return weaponInventory[0];
+        int currentIndex = Array.IndexOf(weaponInventory, currentWeapon.Id);
+        if (currentIndex == -1) return weaponInventory[0];
+        int nextIndex = (currentIndex + 1) % weaponInventory.Length;
+        return weaponInventory[nextIndex];
+    }
+
+
+    public void EquipWeapon(Node2D parent, string weaponId = null)
+    {
+        if (weaponId == null || weaponId == "")
+            weaponId = GetNextWeaponId();
+
+        if (weaponInventory.Length == 0 || weaponInventory == null ||
+           Array.IndexOf(weaponInventory, weaponId) == -1 ||
+           currentWeapon?.Id == weaponId)
+        {
+            return;
+        }
+
         var weaponInstance = WeaponFactory.InstantiateWeapon(parent, weaponId);
         if (weaponInstance != null)
         {
+            UnloadCurrentWeapon(currentWeapon);
             currentWeapon = weaponInstance;
         }
-        else
+        
+    }
+
+
+    public void UnloadCurrentWeapon(WeaponEntity weapon = null)
+    {
+        if (weapon != null)
         {
-            currentWeapon = null;
+            weapon.QueueFree();
         }
     }
-    
+
+
     public void HandleAction(InputAction action)
     {
         if (currentWeapon == null) return;

@@ -2,6 +2,7 @@ using Godot;
 
 public partial class WeaponEntity : Node2D
 {
+    [Export] public string Id { get; set; } = "";
     public ProjectileComponent Projectile { get; set; } = new ProjectileComponent();
     public FireRateComponent FireRate { get; set; } = new FireRateComponent();
     public AmmoComponent Ammo { get; set; } = new AmmoComponent();

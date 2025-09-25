@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://wev64j1dvgr0"]
+
+[ext_resource type="Script" uid="uid://dclg3e2uulivj" path="res://databases/weapons/WeaponData.cs" id="1_4tu7m"]
+[ext_resource type="PackedScene" uid="uid://cfcpq4i0a2ix" path="res://scenes/projectiles/cannon_ball.tscn" id="1_bdhr2"]
+[ext_resource type="PackedScene" uid="uid://bglmdfsl5t37w" path="res://scenes/weapons/CANNON.tscn" id="2_dfdde"]
+
+[resource]
+script = ExtResource("1_4tu7m")
+Id = "cannon"
+DisplayName = "Cannon"
+WeaponScene = ExtResource("2_dfdde")
+ProjectileScene = ExtResource("1_bdhr2")
+LinearSpeed = Vector2(2000, 0)
+Mode = "Linear"
+Duration = -1.0
+MaxCollitions = 1.0
+OnExpireEffect = ""
+OnCollideEffect = ""
+DamagePerSecond = 5.0
+IsAreaEffect = false
+AreaRadius = 0.0
+CollitionDamage = 20.0
+FireRateDelta = 3.0
+FireRateMode = 0
+MaxAmmo = 3.0
+ReloadTime = 4.0
+MaxMagazine = 12.0
+metadata/_custom_type_script = "uid://dclg3e2uulivj"

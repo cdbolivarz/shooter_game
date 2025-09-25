@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfcpq4i0a2ix"]
+
+[ext_resource type="Script" uid="uid://bt2p3c8fq1h8k" path="res://scripts/entities/ProjectileEntity.cs" id="1_4i1lx"]
+[ext_resource type="Texture2D" uid="uid://fchd7vv31xvv" path="res://assets/materials/projectiles/cannon_ball.png" id="2_4i1lx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k34rq"]
+radius = 11.6667
+
+[node name="M16Bullet" type="RigidBody2D" node_paths=PackedStringArray("ProjectileSprite")]
+mass = 20.094
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_4i1lx")
+ProjectileSprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.57084
+scale = Vector2(0.719994, 0.75999)
+shape = SubResource("CircleShape2D_k34rq")
+one_way_collision_margin = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.27374e-13, 0)
+scale = Vector2(0.00807875, -0.0076)
+texture = ExtResource("2_4i1lx")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-9, 0)
+scale = Vector2(0.0375, 0.125)
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnScreenExited"]

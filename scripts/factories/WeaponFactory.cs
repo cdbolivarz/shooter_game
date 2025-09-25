@@ -19,6 +19,10 @@ public class WeaponFactory
 
         var weapon = entity.GetNode<WeaponEntity>("Weapon");
 
+        weapon.Id = data.Id;
+        weapon.Name = "Weapon_" + data.Id;
+
+
         // AmmoComponent
         weapon.Ammo.MaxAmmo = data.MaxAmmo;
         weapon.Ammo.MaxMagazine = data.MaxMagazine;

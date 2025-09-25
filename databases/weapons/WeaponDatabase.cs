@@ -11,6 +11,8 @@ public sealed class WeaponDatabase
     {
         // Preload or load dynamically
         RegisterWeapon(ResourceLoader.Load<WeaponData>("res://databases/weapons/M16.tres"));
+        RegisterWeapon(ResourceLoader.Load<WeaponData>("res://databases/weapons/FAMAS.tres"));
+        RegisterWeapon(ResourceLoader.Load<WeaponData>("res://databases/weapons/CANNON.tres"));
         // RegisterWeapon(ResourceLoader.Load<WeaponData>("res://Data/Weapons/Shotgun.tres"));
     }
 

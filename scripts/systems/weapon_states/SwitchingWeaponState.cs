@@ -3,6 +3,7 @@ using Godot;
 public class SwitchingWeaponState : WeaponStateBase
 {
 
+    private double _switchTimer = 0.5; // Time it takes to switch weapon
     private bool shouldTransitionToShoot = false;
     private bool shouldTransitionToReload = false;
     private bool shouldTransitionToNoShoot = false;
@@ -19,7 +20,12 @@ public class SwitchingWeaponState : WeaponStateBase
 
     public override void Update(float delta)
     {
-        // lógica para finalizar switch
+        _switchTimer -= delta;
+        if (_switchTimer <= 0)
+        {
+            weaponSystem.EquipWeapon(weaponSystem.currentWeapon.GetParent<Node2D>());
+            shouldTransitionToNoShoot = true;
+        }
     }
 
     public override void Exit() { }
@@ -38,8 +44,24 @@ public class SwitchingWeaponState : WeaponStateBase
         {
             return WeaponStateType.NoShooting;
         }
-        // return WeaponStateType.None; always switch to NoShooting (until we implement a switch logic)
-        return WeaponStateType.NoShooting;
+        return WeaponStateType.None;
+    }
+
+    public override void HandleAction(InputAction action)
+    {
+        switch (action)
+        {
+            case InputAction.Shoot:
+                shouldTransitionToShoot = true;
+                break;
+            case InputAction.Reload:
+                if (weaponSystem.currentWeapon.Ammo.CurrentAmmo < weaponSystem.currentWeapon.Ammo.MaxAmmo && !weaponSystem.currentWeapon
+                    .Ammo.IsReloading && weaponSystem.currentWeapon.Ammo.CurrentMagazine > 0)
+                {
+                    shouldTransitionToReload = true;
+                }
+                break;
+        }
     }
     
 }
