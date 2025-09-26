@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 
 // Singleton pattern for weapon database
-public sealed class WeaponDatabase
+public partial class WeaponDatabase: Node
 {
     private Dictionary<string, WeaponData> _weapons = new();
     private static WeaponDatabase _instance;
@@ -16,12 +16,14 @@ public sealed class WeaponDatabase
         // RegisterWeapon(ResourceLoader.Load<WeaponData>("res://Data/Weapons/Shotgun.tres"));
     }
 
-    public static WeaponDatabase GetInstance()
+    public override void _Ready()
     {
-        if (_instance == null)
-        {
-            _instance = new WeaponDatabase();
-        }
+        _instance = new WeaponDatabase();
+        GD.Print("[WeaponDatabase] Initialized with weapons: " + string.Join(", ", _weapons.Keys));
+    }
+
+    public WeaponDatabase GetInstance()
+    {
         return _instance;
     }
 

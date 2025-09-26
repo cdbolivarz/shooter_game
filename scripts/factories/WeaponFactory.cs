@@ -4,10 +4,19 @@ public class WeaponFactory
 // This class is responsible for creating weapon instances based on WeaponData, cache can be added here
 {
 
+
+    public static WeaponDatabase GetWeaponDatabase(Node2D entity)
+    {
+        // Assumes the WeaponDatabase is a child of a known node in the scene tree
+        var db_node = entity.GetTree().Root.GetNode<WeaponDatabase>("/root/World/Databases/Weapons");
+        WeaponDatabase _db = db_node.GetInstance();
+        return _db;
+    }
+
     public static WeaponEntity InstantiateWeapon(Node2D entity, string id)
     {
-        var _db = WeaponDatabase.GetInstance();
-        var data = _db.GetWeaponData(id);
+        WeaponDatabase _db = GetWeaponDatabase(entity);
+        WeaponData data = _db.GetWeaponData(id);
         if (data == null) return null;
 
         // Should Nodo2D with Material Sprite2D, and "Cannon" Marker2D as child
@@ -27,7 +36,7 @@ public class WeaponFactory
         weapon.Ammo.MaxAmmo = data.MaxAmmo;
         weapon.Ammo.MaxMagazine = data.MaxMagazine;
         weapon.Ammo.ReloadTime = data.ReloadTime;
-        
+
         // ProjectileComponent
         weapon.Projectile.Mode = data.Mode;
         weapon.Projectile.LinearSpeed = data.LinearSpeed;
@@ -45,7 +54,7 @@ public class WeaponFactory
         // FireRateComponent
         weapon.FireRate.FireRateDelta = data.FireRateDelta;
         weapon.FireRate.Mode = data.FireRateMode;
-        
+
 
         return weapon;
     }

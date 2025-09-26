@@ -1,13 +1,13 @@
 using Godot;
 using System.Collections.Generic;
 using System;
-using System.Dynamic;
 
 
 public partial class WeaponSystem
 {
     // This could be expanded to manage multiple weapons and inventory systems
     public string[] weaponInventory { get; set; }
+    public Dictionary<string, WeaponEntity> weaponDictionary { get; set; } = new Dictionary<string, WeaponEntity>();
     public WeaponEntity currentWeapon { get; set; }
     public WeaponStateMachine stateMachine;
     private WeaponStateFactory _stateFactory;
@@ -53,12 +53,10 @@ public partial class WeaponSystem
         currentWeapon.Ammo.IsReloading = true;
 
 
-        GD.Print($"[WeaponSystem] Reloading... Current Ammo: {currentWeapon.Ammo.CurrentAmmo}, Current Magazine: {currentWeapon.Ammo.CurrentMagazine}");
         float ammo_to_reload = (float)Math.Min(currentWeapon.Ammo.MaxAmmo - currentWeapon.Ammo.CurrentAmmo, currentWeapon.Ammo.MaxAmmo);
         if (currentWeapon.Ammo.CurrentMagazine >= 0)
             currentWeapon.Ammo.CurrentMagazine -= ammo_to_reload;
         currentWeapon.Ammo.CurrentAmmo += ammo_to_reload;
-        GD.Print("Reload complete!");
         currentWeapon.Ammo.IsReloading = false;
 
     }
@@ -110,10 +108,19 @@ public partial class WeaponSystem
             return;
         }
 
+        if (weaponDictionary.ContainsKey(weaponId))
+        {
+            UnloadCurrentWeapon(currentWeapon);
+            currentWeapon = weaponDictionary[weaponId];
+            currentWeapon.Visible = true;
+            return;
+        }
+
         var weaponInstance = WeaponFactory.InstantiateWeapon(parent, weaponId);
         if (weaponInstance != null)
         {
             UnloadCurrentWeapon(currentWeapon);
+            weaponDictionary[weaponId] = weaponInstance;
             currentWeapon = weaponInstance;
         }
         
@@ -124,7 +131,7 @@ public partial class WeaponSystem
     {
         if (weapon != null)
         {
-            weapon.QueueFree();
+            weapon.Visible = false;
         }
     }
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1h36akeebu4c"]
+[gd_scene load_steps=8 format=3 uid="uid://c1h36akeebu4c"]
 
 [ext_resource type="PackedScene" uid="uid://ddijh8ocopaij" path="res://scenes/platforms/rock.tscn" id="1_jw006"]
 [ext_resource type="PackedScene" uid="uid://cjhai1yqxa0pm" path="res://cameras/main_camera.tscn" id="2_ucgi8"]
 [ext_resource type="PackedScene" uid="uid://ctfikwrgr0h5g" path="res://entities/player/player_new.tscn" id="4_1rv7t"]
 [ext_resource type="PackedScene" uid="uid://baeus2q46socu" path="res://scenes/enemies/janemba.tscn" id="5_imm6p"]
+[ext_resource type="Script" uid="uid://cr5rj2bnxvv1h" path="res://databases/weapons/WeaponDatabase.cs" id="6_jw006"]
 [ext_resource type="Texture2D" uid="uid://cvhemu7iumv0n" path="res://assets/materials/platforms/rock.png" id="7_ucgi8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucgi8"]
@@ -49,3 +50,8 @@ jumpForce = -650.0
 
 [node name="Janemba" parent="." instance=ExtResource("5_imm6p")]
 position = Vector2(388, -61)
+
+[node name="Databases" type="Node" parent="."]
+
+[node name="Weapons" type="Node" parent="Databases"]
+script = ExtResource("6_jw006")

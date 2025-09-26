@@ -50,7 +50,7 @@ WeaponSprite = NodePath("Sprite2D")
 WeaponAnimation = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.184689, 0.184027)
+scale = Vector2(0.177377, 0.162655)
 texture = ExtResource("2_8b60s")
 
 [node name="Cannon" type="Marker2D" parent="Sprite2D"]

@@ -3,7 +3,7 @@ using Godot;
 public class SwitchingWeaponState : WeaponStateBase
 {
 
-    private double _switchTimer = 0.5; // Time it takes to switch weapon
+    private double _switchTimer = 0.25; // Time it takes to switch weapon
     private bool shouldTransitionToShoot = false;
     private bool shouldTransitionToReload = false;
     private bool shouldTransitionToNoShoot = false;
