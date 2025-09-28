@@ -1,12 +1,14 @@
-public class PlayerSystems
+public class PlayerSystems : IDamagable, IWeapons, IPlatforms
 {
-    public WeaponSystem weaponSystem { get; private set; }
-    public PlatformSystem platformSystem { get; private set; }
+    public WeaponSystem weaponSystem { get; set; }
+    public PlatformSystem platformSystem { get; set; }
+    public DamageSystem damageSystem { get; set; }
 
-    public PlayerSystems()
+    public PlayerSystems(WeaponSystem weaponSystem = null, PlatformSystem platformSystem = null, DamageSystem damageSystem = null)
     {
-        weaponSystem = new WeaponSystem(weaponInventory: new string[] { "m16", "famas", "cannon" });
-        platformSystem = new PlatformSystem();
+        this.weaponSystem = weaponSystem ?? new WeaponSystem();
+        this.platformSystem = platformSystem ?? new PlatformSystem();
+        this.damageSystem = damageSystem;
     }
 
     public void Update(float delta)

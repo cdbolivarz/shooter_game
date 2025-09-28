@@ -13,9 +13,12 @@ public partial class ProjectileSystem
     private static void OnProjectileHit(Node projectile_scene, Node target)
     {
         var projectile_entity = projectile_scene as ProjectileEntity;
-        
-        if (target.HasMethod("TakeDamage"))
-            target.CallDeferred("TakeDamage", projectile_entity.Projectile.Damage.CollitionDamage);
+        IDamagable damagable_node = target as IDamagable;
+        if (damagable_node != null)
+        {
+            damagable_node.damageSystem?.ApplyDamage(projectile_entity.Projectile.Damage);
+        }
+
 
         projectile_entity.Projectile.CollitionsQuantity++;
         if (projectile_entity.Projectile.CollitionsQuantity >= projectile_entity.Projectile.LifeCycle.MaxCollitions)

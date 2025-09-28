@@ -7,7 +7,7 @@ public partial class WeaponSystem
 {
     // This could be expanded to manage multiple weapons and inventory systems
     public string[] weaponInventory { get; set; }
-    public Dictionary<string, WeaponEntity> weaponDictionary { get; set; } = new Dictionary<string, WeaponEntity>();
+    public Dictionary<string, WeaponEntity> weaponDictionary { get; set; }
     public WeaponEntity currentWeapon { get; set; }
     public WeaponStateMachine stateMachine;
     private WeaponStateFactory _stateFactory;
@@ -24,6 +24,7 @@ public partial class WeaponSystem
     public WeaponSystem(string[] weaponInventory)
     {
         currentWeapon = null;
+        weaponDictionary = new Dictionary<string, WeaponEntity>();
         this.weaponInventory = weaponInventory;
         _stateFactory = new WeaponStateFactory(this);
         stateMachine = new WeaponStateMachine(_stateFactory);
@@ -33,6 +34,7 @@ public partial class WeaponSystem
     public WeaponSystem(WeaponEntity initialWeapon, string[] weaponInventory)
     {
         this.weaponInventory = weaponInventory;
+        weaponDictionary = new Dictionary<string, WeaponEntity>();
         currentWeapon = initialWeapon;
         _stateFactory = new WeaponStateFactory(this);
         stateMachine = new WeaponStateMachine(_stateFactory);
@@ -115,7 +117,6 @@ public partial class WeaponSystem
             currentWeapon.Visible = true;
             return;
         }
-
         var weaponInstance = WeaponFactory.InstantiateWeapon(parent, weaponId);
         if (weaponInstance != null)
         {
