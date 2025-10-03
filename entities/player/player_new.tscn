@@ -141,15 +141,9 @@ remote_path = NodePath("../../../../../../Body/FrontR")
 
 [node name="Hand" type="Bone2D" parent="Skeleton2D/Hip/Torso/ArmR/Front"]
 position = Vector2(-17.6323, -54.278)
-rotation = -0.388223
-scale = Vector2(0.813475, -5.51164)
-rest = Transform2D(0.752939, -0.307936, -2.0864, -5.10148, -17.6323, -54.278)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton2D/Hip/Torso/ArmR/Front/Hand"]
-position = Vector2(-9.4707, 2.31181)
-rotation = -3.10518
-scale = Vector2(1.47129, -0.431245)
-skew = 1.04463
+rotation = 2.7838
 remote_path = NodePath("../../../../../../../Body/HandR")
 
 [node name="ArmL" type="Bone2D" parent="Skeleton2D/Hip/Torso"]
@@ -274,11 +268,12 @@ texture = ExtResource("8_ai6fw")
 
 [node name="HandR" type="Sprite2D" parent="Body"]
 z_index = 2
-position = Vector2(-64, 51)
-rotation = -0.221256
-scale = Vector2(0.959987, 0.988755)
-skew = 0.16012
+position = Vector2(-67.8017, 39.5901)
+rotation = 0.0883091
+scale = Vector2(0.743365, 0.887678)
+skew = 0.110104
 texture = ExtResource("9_5mby6")
+offset = Vector2(-1, 13)
 
 [node name="Head" type="Sprite2D" parent="Body"]
 z_index = 1
