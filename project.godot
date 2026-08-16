@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Shooter Game"
 
+[autoload]
+
+WeaponDatabase="*res://databases/weapons/WeaponDatabase.cs"
+
 [input]
 
 shoot={

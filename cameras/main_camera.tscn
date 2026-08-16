@@ -1,3 +1,4 @@
 [gd_scene format=3 uid="uid://cjhai1yqxa0pm"]
 
 [node name="MainCamera" type="Camera2D"]
+scale = Vector2(inf_neg, 7.82752)
