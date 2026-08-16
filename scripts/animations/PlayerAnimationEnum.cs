@@ -1,3 +1,5 @@
+namespace ShooterGame.Animations;
+
 public enum PlayerAnimationEnum
 {
     Idle,

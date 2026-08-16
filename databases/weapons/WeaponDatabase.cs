@@ -1,40 +1,32 @@
 using Godot;
 using System.Collections.Generic;
 
-// Singleton pattern for weapon database
-public partial class WeaponDatabase: Node
-{
-    private Dictionary<string, WeaponData> _weapons = new();
-    private static WeaponDatabase _instance;
+namespace ShooterGame.Data;
 
-    private WeaponDatabase()
+/// <summary>
+/// Godot autoload singleton (registered in project.godot). Holds all weapon
+/// definitions; access via <see cref="Instance"/>.
+/// </summary>
+public partial class WeaponDatabase : Node
+{
+    public static WeaponDatabase Instance { get; private set; }
+
+    private readonly Dictionary<string, WeaponData> _weapons = new();
+
+    public override void _EnterTree()
     {
-        // Preload or load dynamically
+        Instance = this;
+
         RegisterWeapon(ResourceLoader.Load<WeaponData>("res://databases/weapons/M16.tres"));
         RegisterWeapon(ResourceLoader.Load<WeaponData>("res://databases/weapons/FAMAS.tres"));
         RegisterWeapon(ResourceLoader.Load<WeaponData>("res://databases/weapons/CANNON.tres"));
-        // RegisterWeapon(ResourceLoader.Load<WeaponData>("res://Data/Weapons/Shotgun.tres"));
     }
 
-    public override void _Ready()
-    {
-        _instance = new WeaponDatabase();
-        GD.Print("[WeaponDatabase] Initialized with weapons: " + string.Join(", ", _weapons.Keys));
-    }
-
-    public WeaponDatabase GetInstance()
-    {
-        return _instance;
-    }
+    public WeaponData GetWeaponData(string id) => _weapons.GetValueOrDefault(id);
 
     private void RegisterWeapon(WeaponData data)
     {
-        if (!_weapons.ContainsKey(data.Id))
+        if (data != null && !_weapons.ContainsKey(data.Id))
             _weapons[data.Id] = data;
-    }
-
-    public WeaponData GetWeaponData(string id)
-    {
-        return _weapons.GetValueOrDefault(id);
     }
 }

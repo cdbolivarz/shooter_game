@@ -1,49 +1,37 @@
 using Godot;
+using ShooterGame.Data;
+using ShooterGame.Entities;
 
-public class WeaponFactory
-// This class is responsible for creating weapon instances based on WeaponData, cache can be added here
+namespace ShooterGame.Factories;
+
+/// <summary>Builds <see cref="WeaponEntity"/> instances from <see cref="WeaponData"/>.</summary>
+public static class WeaponFactory
 {
-
-
-    public static WeaponDatabase GetWeaponDatabase(Node2D entity)
+    public static WeaponEntity InstantiateWeapon(Node2D owner, string id)
     {
-        // Assumes the WeaponDatabase is a child of a known node in the scene tree
-        var db_node = entity.GetTree().Root.GetNode<WeaponDatabase>("/root/World/Databases/Weapons");
-        WeaponDatabase _db = db_node.GetInstance();
-        return _db;
-    }
+        WeaponData data = WeaponDatabase.Instance?.GetWeaponData(id);
+        if (data == null || data.WeaponScene == null)
+            return null;
 
-    public static WeaponEntity InstantiateWeapon(Node2D entity, string id)
-    {
-        WeaponDatabase _db = GetWeaponDatabase(entity);
-        WeaponData data = _db.GetWeaponData(id);
-        if (data == null) return null;
-
-        // Should Nodo2D with Material Sprite2D, and "Cannon" Marker2D as child
-        var weapon_scene = data.WeaponScene.Instantiate<Node2D>();
-
-        entity.AddChild(weapon_scene);
-        weapon_scene.GlobalPosition = entity.GlobalPosition;
-        weapon_scene.Position = new Vector2(0, 0);
-
-        var weapon = entity.GetNode<WeaponEntity>("Weapon");
-
+        WeaponEntity weapon = data.WeaponScene.Instantiate<WeaponEntity>();
         weapon.Id = data.Id;
-        weapon.Name = "Weapon_" + data.Id;
+        weapon.Name = $"Weapon_{data.Id}";
 
+        owner.AddChild(weapon);
+        weapon.Position = Vector2.Zero;
 
-        // AmmoComponent
+        // Ammo
         weapon.Ammo.MaxAmmo = data.MaxAmmo;
         weapon.Ammo.MaxMagazine = data.MaxMagazine;
         weapon.Ammo.ReloadTime = data.ReloadTime;
+        weapon.Ammo.ResetToFull();
 
-        // ProjectileComponent
+        // Projectile
         weapon.Projectile.Mode = data.Mode;
         weapon.Projectile.LinearSpeed = data.LinearSpeed;
         weapon.Projectile.ProjectileScene = data.ProjectileScene;
-        // DamageComponent and LifeCycleComponent
         weapon.Projectile.LifeCycle.Duration = data.Duration;
-        weapon.Projectile.LifeCycle.MaxCollitions = (int)data.MaxCollitions;
+        weapon.Projectile.LifeCycle.MaxCollitions = data.MaxCollitions;
         weapon.Projectile.LifeCycle.OnExpireEffect = data.OnExpireEffect;
         weapon.Projectile.LifeCycle.OnCollideEffect = data.OnCollideEffect;
         weapon.Projectile.Damage.DamagePerSecond = data.DamagePerSecond;
@@ -51,10 +39,9 @@ public class WeaponFactory
         weapon.Projectile.Damage.AreaRadius = data.AreaRadius;
         weapon.Projectile.Damage.CollitionDamage = data.CollitionDamage;
 
-        // FireRateComponent
+        // Fire rate
         weapon.FireRate.FireRateDelta = data.FireRateDelta;
         weapon.FireRate.Mode = data.FireRateMode;
-
 
         return weapon;
     }

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://baeus2q46socu"]
 
 [ext_resource type="Texture2D" uid="uid://cakfdfl0cr6ld" path="res://assets/enemies/janemba.webp" id="1_coqeo"]
-[ext_resource type="Script" uid="uid://n12sjfaphb4i" path="res://scripts/EnemyController.cs" id="2_weixv"]
+[ext_resource type="Script" uid="uid://n12sjfaphb4i" path="res://scripts/entities/EnemyController.cs" id="2_weixv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_coqeo"]
 radius = 71.0
